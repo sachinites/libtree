@@ -171,7 +171,19 @@ struct avltree_node *avltree_lookup(const struct avltree_node *key, const struct
 struct avltree_node *avltree_insert(struct avltree_node *node, struct avltree *tree);
 void avltree_remove(struct avltree_node *node, struct avltree *tree);
 void avltree_replace(struct avltree_node *old, struct avltree_node *node, struct avltree *tree);
-int avltree_init(struct avltree *tree, avltree_cmp_fn_t cmp, unsigned long flags);
+int avltree_init(struct avltree *tree, avltree_cmp_fn_t cmp);
+
+/* Iterator over the AVL tree (delete safe loop)*/
+#define ITERATE_AVL_TREE_BEGIN(avltree_ptr, avltree_node_ptr)	\
+{																\
+	struct avltree_node *next_avltree_node_ptr = NULL;			\
+	for(avltree_node_ptr = avltree_first(avltree_ptr); 			\
+		avltree_node_ptr;										\
+		avltree_node_ptr = next_avltree_node_ptr){				\
+		next_avltree_node_ptr = avltree_next(avltree_node_ptr);
+
+#define ITERATE_AVL_TREE_END	}}
+
 
 /*
  * Splay tree
