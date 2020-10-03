@@ -6,6 +6,13 @@
  * tree. Refer to this example and use this AVL tree library in
  * your code the same way */
 
+ /* To compile and run :
+ *  gcc -g -c avl_test.c -o avl_test.o
+ *  gcc -g -c avl.c -o avl.o
+ *  gcc -g avl_test.o avl.o -o avl_test.exe
+ *  Run : ./avl_test.exe 
+ * */
+
 /* Sample data structure. Your Data Structure must have AVL node as
  * a member. This is called embedded avl node. Your application
  * objects (complex_t) will be inserted into AVL tree using this
