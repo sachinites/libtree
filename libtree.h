@@ -151,6 +151,7 @@ struct avltree_node {
 };
 
 #endif
+typedef struct avltree_node avltree_node_t;
 
 typedef int (*avltree_cmp_fn_t)(const struct avltree_node *, const struct avltree_node *);
 
@@ -161,6 +162,7 @@ struct avltree {
 	struct avltree_node *first, *last;
 	uint64_t reserved[4];
 };
+typedef struct avltree avltree_t;
 
 struct avltree_node *avltree_first(const struct avltree *tree);
 struct avltree_node *avltree_last(const struct avltree *tree);
@@ -172,6 +174,11 @@ struct avltree_node *avltree_insert(struct avltree_node *node, struct avltree *t
 void avltree_remove(struct avltree_node *node, struct avltree *tree);
 void avltree_replace(struct avltree_node *old, struct avltree_node *node, struct avltree *tree);
 int avltree_init(struct avltree *tree, avltree_cmp_fn_t cmp);
+
+static inline int avltree_is_empty(struct avltree *tree) {
+	int rc = !avltree_first(tree) ? 1 : 0;
+	return rc;
+}
 
 /* Iterator over the AVL tree (delete safe loop)*/
 #define ITERATE_AVL_TREE_BEGIN(avltree_ptr, avltree_node_ptr)	\
